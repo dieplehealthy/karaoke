@@ -318,6 +318,9 @@
         </div>
     </div>
 
+    <!-- Search Service -->
+    <script src="search-service.js"></script>
+    
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
@@ -371,38 +374,13 @@
             showLoading();
 
             try {
-                const results = await searchYouTube(query);
+                // Use SearchService for YouTube searches
+                const results = await SearchService.search(query);
                 displayResults(results);
             } catch (err) {
                 showError('Search failed: ' + err.message);
                 console.error(err);
             }
-        }
-
-        async function searchYouTube(query) {
-            // Mock search results for demo
-            const mockResults = [
-                {
-                    id: 'video_' + Math.random().toString(36).substr(2, 9),
-                    title: query + ' - Version 1',
-                    duration: 213,
-                    thumbnail: 'https://via.placeholder.com/60?text=Song1'
-                },
-                {
-                    id: 'video_' + Math.random().toString(36).substr(2, 9),
-                    title: query + ' - Version 2',
-                    duration: 280,
-                    thumbnail: 'https://via.placeholder.com/60?text=Song2'
-                },
-                {
-                    id: 'video_' + Math.random().toString(36).substr(2, 9),
-                    title: query + ' - Karaoke',
-                    duration: 245,
-                    thumbnail: 'https://via.placeholder.com/60?text=Song3'
-                }
-            ];
-
-            return new Promise(resolve => setTimeout(() => resolve(mockResults), 500));
         }
 
         function displayResults(results) {
@@ -445,9 +423,7 @@
         }
 
         function formatDuration(seconds) {
-            const mins = Math.floor(seconds / 60);
-            const secs = seconds % 60;
-            return `${mins}:${secs.toString().padStart(2, '0')}`;
+            return SearchService.formatDuration(seconds);
         }
 
         async function addToQueue(videoId, title, duration) {
