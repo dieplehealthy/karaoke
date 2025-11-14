@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎵 Karaoke YouTube Queue</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            text-align: center;
+            color: white;
+            max-width: 600px;
+        }
+
+        .logo {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .qr-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .qr-text {
+            color: #333;
+            font-size: 14px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            background: white;
+            border: 3px solid #667eea;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .qr-code img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .instructions {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 30px 20px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .instructions h2 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .step {
+            text-align: left;
+            margin-bottom: 15px;
+            padding-left: 40px;
+            position: relative;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .step::before {
+            content: attr(data-step);
+            position: absolute;
+            left: 0;
+            width: 30px;
+            height: 30px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .features {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .feature {
+            flex: 1;
+            min-width: 150px;
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 12px;
+        }
+
+        .feature-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .button {
+            background: white;
+            color: #667eea;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .button-secondary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .button-secondary:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .footer {
+            font-size: 12px;
+            opacity: 0.7;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 36px;
+            }
+
+            .logo {
+                font-size: 60px;
+            }
+
+            .qr-code {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🎵</div>
+        <h1>YouTube Karaoke Queue</h1>
+        <p class="subtitle">Add your favorite songs to the queue using QR code from YouTube</p>
+
+        <div class="qr-section">
+            <p class="qr-text">📱 Scan QR Code from YouTube Extension</p>
+            <div class="qr-code">
+                <img id="qrCode" src="" alt="QR Code">
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h2>Cách Sử Dụng</h2>
+            <div class="step" data-step="1">
+                <strong>Mở YouTube</strong> và tìm bài hát bạn muốn thêm
+            </div>
+            <div class="step" data-step="2">
+                <strong>Quét QR Code</strong> từ popup góc trên bên phải YouTube
+            </div>
+            <div class="step" data-step="3">
+                <strong>Chọn bài hát</strong> và bấm "Add to Queue"
+            </div>
+            <div class="step" data-step="4">
+                <strong>Xem danh sách</strong> của bạn trên admin panel
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <div>Real-time Sync</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📱</div>
+                <div>Mobile Friendly</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔐</div>
+                <div>Firebase Secure</div>
+            </div>
+        </div>
+
+        <div>
+            <a href="add.html?session=default_session" class="button">Go to Queue Manager →</a>
+            <a href="admin.html" class="button button-secondary">Admin Panel</a>
+        </div>
+
+        <div class="footer">
+            <p>🎤 YouTube Karaoke Queue Manager v1.0</p>
+            <p>Made with ❤️ for music lovers</p>
+        </div>
+    </div>
+
+    <script>
+        // Generate QR code for this page
+        function generateQR() {
+            const url = window.location.origin + window.location.pathname + 'add.html?session=default_session';
+            const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(url)}`;
+            document.getElementById('qrCode').src = qrCodeUrl;
+        }
+
+        // Generate QR code when page loads
+        document.addEventListener('DOMContentLoaded', generateQR);
+    </script>
+</body>
+</html>
